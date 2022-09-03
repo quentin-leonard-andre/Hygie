@@ -52,7 +52,11 @@
         <div class="mt-6">
             <h2 class="text-2xl">Exercices</h2>
 
-            <a :href="route('exercices.create', {seance: seance.id})" class="btn mt-6 btn-primary">Nouveau</a>
+            <div class='my-3 flex gap-2'>
+                <a :href="route('exercices.create', {seance: seance.id})" class="btn mt-6 btn-primary">Nouveau</a>
+                <a :href="route('seances.edit', {seance: seance.id})" class="btn mt-6 btn-secondary">Modifier</a>
+            </div>
+            
 
             <!-- Table -->
             <div class="overflow-x-auto mt-4">
