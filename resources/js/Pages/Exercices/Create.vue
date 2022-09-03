@@ -82,6 +82,27 @@
                     );
                 }
                 
+            },
+            //Récupère le dernier exercice
+            async getLastExercice(machine_id){
+                //Si une machine est fournie
+                if(machine_id){
+                    try {
+                        //Appel à l'API
+                        let res = await fetch(route('exercices.get_last_input', {machine: machine_id}));
+                        res = await res.json();
+
+                        //Si il y a un résultats
+                        if(res){
+                            this.form = res;
+                            if(this.form.repetitions)
+                                this.form.repetitions++;
+                        }
+                            
+                    }catch (error) {
+                        console.log(error);
+                    }
+                }
             }
         }
     }
@@ -108,7 +129,7 @@
                 <!-- Machine -->
                 <div class="mt-4 flex flex-col gap-2">
                     <label for="machine_id">Machine</label>
-                    <select id="machine_id" v-model="form.machine_id" class="input input-bordered w-full max-w-md" :class="{'input-error': (errors && errors.machine_id)}">
+                    <select @change="getLastExercice(form.machine_id)" id="machine_id" v-model="form.machine_id" class="input input-bordered w-full max-w-md" :class="{'input-error': (errors && errors.machine_id)}">
                         <option></option>
                         <option v-for="machine in machines" :value="machine.id">
                             {{ machine.nom }}

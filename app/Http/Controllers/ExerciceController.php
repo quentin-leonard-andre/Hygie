@@ -9,6 +9,7 @@ use Redirect;
 use Auth;
 use App\Models\Seance;
 use App\Models\Exercice;
+use App\Models\Machine;
 
 class ExerciceController extends Controller
 {
@@ -60,5 +61,10 @@ class ExerciceController extends Controller
             'poids' => 'nullable',
             'machine_id' => 'nullable'
         ]);
+    }
+
+    public function getLastInput(Machine $machine){
+        $res = Seance::orderByDesc('date_debut')->first()->exercices()->where('machine_id', '=', $machine->id)->orderByDesc('repetitions')->first();
+        return json_encode($res);
     }
 }

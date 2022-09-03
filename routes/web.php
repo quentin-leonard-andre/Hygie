@@ -29,6 +29,7 @@ Route::get('/', function () {
     ]);
 });
 
+//Tableau de bord
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 //Machines
@@ -39,5 +40,6 @@ Route::resource('seances', SeanceController::class)->middleware(['auth', 'verifi
 
 //Exercices
 Route::resource('seances.exercices', ExerciceController::class)->names('exercices')->middleware('auth');
+Route::get('/exercices/get_last_input/{machine}', [ExerciceController::class, 'getLastInput'])->middleware(['auth', 'verified'])->name('exercices.get_last_input');
 
 require __DIR__.'/auth.php';
